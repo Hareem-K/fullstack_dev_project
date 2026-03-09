@@ -6,29 +6,47 @@ import Script from "next/script";
 export default function QuotePage() {
   return (
     <PublicLayout>
-      <section className="bg-gradient-to-b from-neutral-900 to-neutral-800 py-20 text-white">
+
+      {/* HERO */}
+      <section className="bg-primary py-24 text-white">
         <Container>
+
           <div className="max-w-3xl mx-auto text-center">
+
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Get a Quote
             </h1>
-            <p className="text-xl text-neutral-300">
+
+            <p className="text-xl text-white/80">
               Tell us about your project and we'll provide a detailed proposal
               with pricing and timeline.
             </p>
+
           </div>
+
         </Container>
       </section>
 
-      <section className="py-20 bg-white">
+      {/* FORM */}
+      <section className="py-20 bg-background">
         <Container>
+
           <div className="max-w-3xl mx-auto">
-            <Card>
+
+            <Card className="border border-border">
+
               <CardHeader>
-                <CardTitle className="text-2xl">Project Inquiry</CardTitle>
+
+                <CardTitle className="text-2xl text-primary">
+                  Project Inquiry
+                </CardTitle>
+
               </CardHeader>
+
               <CardContent>
+
                 <div className="w-full">
+
                   <iframe
                     data-tally-src="https://tally.so/embed/NppYPj?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
                     loading="lazy"
@@ -40,30 +58,39 @@ export default function QuotePage() {
                     title="Website Discovery & Quote Request"
                     className="w-full"
                   />
+
                 </div>
 
                 <Script
                   src="https://tally.so/widgets/embed.js"
                   strategy="lazyOnload"
                 />
+
               </CardContent>
-              
+
             </Card>
 
-            <div className="mt-8 text-center text-sm text-neutral-600">
+            {/* EMAIL OPTION */}
+
+            <div className="mt-8 text-center text-sm text-muted-foreground">
+
               <p>
                 Prefer email?{' '}
                 <a
                   href="mailto:hello@studioplaceholder.com"
-                  className="text-blue-600 hover:underline"
+                  className="text-accent hover:underline"
                 >
                   Send us your project details directly
                 </a>
               </p>
+
             </div>
+
           </div>
+
         </Container>
       </section>
+
     </PublicLayout>
   );
 }

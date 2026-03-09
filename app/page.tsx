@@ -95,155 +95,241 @@ export default function Home() {
     },
   ];
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const container = e.currentTarget;
+    const rect = container.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const glow = document.createElement("span");
+    glow.className = "cursor-trail";
+
+    glow.style.left = `${x}px`;
+    glow.style.top = `${y}px`;
+
+    container.appendChild(glow);
+
+    setTimeout(() => {
+      glow.remove();
+    }, 1000); // trail lasts 1 second
+  };
+
   return (
     <PublicLayout>
-      <section className="relative overflow-hidden bg-white py-20 md:py-32">
-        {/* Diagonal Striped Background */}
-        <div
-          className="absolute inset-0 -z-0 pointer-events-none overflow-hidden"
-          id="stripe-bg"
-        >
-          <div className="absolute inset-0 bg-diagonal-stripes animate-stripes" />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/0 to-white/60" />
-        </div>
+
+      {/* HERO */}
+      <section
+        onMouseMove={handleMouseMove}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-primary text-white cursor-glow"
+      >
+
+        {/* animated gradient background */}
+        <div className="absolute inset-0 -z-10 animate-gradient bg-gradient-to-br from-[#0F172A] via-[#1E293B] via-[#4A6FA5] to-[#0F172A]" />
+        <div className="absolute inset-0 -z-10 opacity-60 animate-gradient bg-gradient-to-tr from-[#1E293B] via-[#4A6FA5] to-[#0F172A]" />
+
+        {/* floating blurred shapes */}
+        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-accent/30 rounded-full blur-[120px] animate-float" />
+        <div className="absolute -bottom-40 -right-32 w-[500px] h-[500px] bg-accent/20 rounded-full blur-[120px] animate-float-slow" />
+
+        {/* subtle grid overlay */}
+        <div className="absolute inset-0 -z-10 opacity-[0.07] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:60px_60px]" />
 
         <Container>
-          <div className="relative z-10 max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-neutral-900 mb-6 leading-tight">
-              We Build Digital Foundations for Businesses Ready to Grow
+          <div className="relative z-10 max-w-4xl mx-auto text-center animate-fade-up">
+
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+              We Build Digital Foundations
+              <br />
+              for Businesses Ready to Grow
             </h1>
 
-            <p className="text-lg md:text-xl text-neutral-600 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto">
               We design and develop scalable digital platforms that position
               your business for long-term growth, credibility, and measurable success.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild>
+
+              <Button
+                size="lg"
+                asChild
+                className="bg-white text-primary hover:bg-neutral-200 hover:-translate-y-0.5 transition-all duration-300"
+              >
                 <Link href="/quote">Start Your Project</Link>
               </Button>
 
-              <Button size="lg" variant="outline" asChild>
+              <Button
+                size="lg"
+                variant="outline"
+                asChild
+                className="border-white text-white bg-transparent hover:bg-white hover:text-primary hover:border-white hover:-translate-y-0.5 transition-all duration-300"
+              >
                 <Link href="/services">Explore Our Process</Link>
               </Button>
+
             </div>
+
           </div>
         </Container>
       </section>
 
-      <section className="py-20 bg-white">
+      {/* SERVICES */}
+      <section className="py-20 bg-background">
         <Container>
+
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
               What We Do
             </h2>
-            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Comprehensive digital solutions designed to elevate your business
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
             {services.map((service, index) => (
-              <Card key={index} className="border-2 hover:border-blue-600 transition-all">
+              <Card
+                key={index}
+                className="border border-border hover:border-accent transition-all"
+              >
                 <CardHeader>
-                  <service.icon className="h-10 w-10 text-blue-600 mb-4" />
-                  <CardTitle className="text-xl">{service.title}</CardTitle>
+                  <service.icon className="h-10 w-10 text-accent mb-4" />
+                  <CardTitle className="text-xl text-primary">
+                    {service.title}
+                  </CardTitle>
                 </CardHeader>
+
                 <CardContent>
-                  <p className="text-neutral-600">{service.description}</p>
+                  <p className="text-muted-foreground">
+                    {service.description}
+                  </p>
                 </CardContent>
               </Card>
             ))}
+
           </div>
         </Container>
       </section>
 
-      <section className="py-20 bg-neutral-50">
+      {/* PROCESS */}
+      <section className="py-20 bg-muted">
         <Container>
+
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
               How It Works
             </h2>
-            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               A proven process that delivers results
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 relative">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+
             {process.map((step, index) => (
-              <div key={index} className="relative">
-                <div className="flex flex-col items-center text-center">
-                  <div className="h-16 w-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl font-bold mb-4">
-                    {step.number}
-                  </div>
-                  <h3 className="text-xl font-semibold text-neutral-900 mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-neutral-600">{step.description}</p>
+              <div key={index} className="flex flex-col items-center text-center">
+
+                <div className="h-16 w-16 rounded-full bg-secondary text-white flex items-center justify-center text-xl font-bold mb-4">
+                  {step.number}
                 </div>
+
+                <h3 className="text-xl font-semibold text-primary mb-2">
+                  {step.title}
+                </h3>
+
+                <p className="text-sm text-muted-foreground">
+                  {step.description}
+                </p>
+
               </div>
             ))}
+
           </div>
         </Container>
       </section>
 
-      <section className="py-20 bg-white">
+      {/* BENEFITS */}
+      <section className="py-20 bg-background">
         <Container>
+
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
               Why Choose Us
             </h2>
-            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
+
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               We do things differently, and it shows in the results
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
             {benefits.map((benefit, index) => (
               <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 text-blue-600 mb-4">
+
+                <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-muted text-accent mb-4">
                   <benefit.icon className="h-8 w-8" />
                 </div>
-                <h3 className="text-lg font-semibold text-neutral-900 mb-2">
+
+                <h3 className="text-lg font-semibold text-primary mb-2">
                   {benefit.title}
                 </h3>
-                <p className="text-neutral-600">{benefit.description}</p>
+
+                <p className="text-muted-foreground">
+                  {benefit.description}
+                </p>
+
               </div>
             ))}
+
           </div>
         </Container>
       </section>
 
-      <section className="py-20 bg-gradient-to-br from-blue-600 to-blue-700">
+      {/* CTA */}
+      <section className="py-20 bg-primary text-white">
         <Container>
-          <div className="max-w-3xl mx-auto text-center text-white">
+
+          <div className="max-w-3xl mx-auto text-center">
+
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Ready to Build Something Exceptional?
             </h2>
-            <p className="text-xl text-blue-100 mb-8">
+
+            <p className="text-lg text-white/80 mb-8">
               Let's discuss your project and create a roadmap to success
             </p>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
               <Button
                 size="lg"
-                variant="secondary"
                 asChild
-                className="bg-white text-blue-600 hover:bg-neutral-100"
+                className="bg-white text-primary hover:bg-neutral-200 hover:-translate-y-0.5 transition-all duration-300"
               >
                 <Link href="/quote">Get a Quote</Link>
               </Button>
+
               <Button
                 size="lg"
                 variant="outline"
                 asChild
-                className="border-white text-white hover:bg-white/10"
+                className="border-white text-white bg-transparent hover:bg-white hover:text-primary hover:border-white hover:-translate-y-0.5 transition-all duration-300"
               >
                 <Link href="/contact">Contact Us</Link>
               </Button>
+
             </div>
+
           </div>
+
         </Container>
       </section>
+
     </PublicLayout>
   );
 }
